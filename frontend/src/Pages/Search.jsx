@@ -10,13 +10,14 @@ export default function Search(){
     const{query} = useParams();
     const [textInput,setTextInput] = useState(query || '');
     const [books,setBooks] = useState([]);
-
+    const [bookAmount,setBookAmount] = useState(0);
 
     async function searchBooks(){
         try{
-            let response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}+subject&key=${process.env.REACT_APP_BOOKS_KEY}`)
+            let response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}+subject&maxResults=20&startIndex=0&key=${process.env.REACT_APP_BOOKS_KEY}`)
             console.log(response)
             setBooks(response.data.items || []);
+            setBookAmount(response.data.totalItems || [])
             setTextInput("");
         }
         catch(error){
@@ -38,22 +39,30 @@ export default function Search(){
         }
     };
     return(
-        <div>
-            <input value={textInput} onKeyDown={handleKeyDown} onChange={(e)=>setTextInput(e.target.value)} type='text' placeholder='search...' />
-            <div className=' flex flex-wrap justify-center'>
-            {books.length > 0 && <h1>Results found {books.length}</h1>}
+        <div className='w-5/6 m-auto '>
+            <div className='w-1/2 m-auto mb-10 '>
+            <input value={textInput} onChange={(e)=>setTextInput(e.target.value)} onKeyDown={handleKeyDown} className=' py-1 border-2 w-full rounded-xl mt-10 text-sm pl-2' placeholder='Search now'/>   
+            </div>
+
+            {books.length > 0 && <h1 className=''>Found {bookAmount}</h1>}
+
+         <div className=' flex flex-wrap justify-center gap-10'>
+    
             {books.length > 0 && books.map((book, index) =>(
                 
-                <div index={index} className='flex border-2 w-1/4 m-2'>
+                <div index={index} className='flex flex-col   bg-red-50 border-2 w-1/4'>
 
-                    {book.volumeInfo?.imageLinks?.thumbnail &&<img src={book.volumeInfo.imageLinks.thumbnail} />}
-                    <div>
-                        <h1>{book.volumeInfo.title}</h1>
-                        <span>Authors:</span> {book.volumeInfo?.authors?.map((author, idx) => (
+            
+                    {book.volumeInfo?.imageLinks?.thumbnail &&<img className='w-full object-contain ' src={book.volumeInfo.imageLinks.thumbnail} />}
+                    <div className=''>
+                        <h1 className='text-center font-bold text-lg'>{book.volumeInfo.title}</h1>
+                        <span className='font-bold'>Authors:</span> {book.volumeInfo?.authors?.map((author, idx) => (
                                 <h2 key={idx}>{author}</h2>
                             )) || 'No Authors'}
-                        <h1><span>Published: </span>{book.volumeInfo.publishedDate}</h1>
+                        <h1><span className='font-bold'>Published: </span>{book.volumeInfo.publishedDate}</h1>
                     </div>
+
+                    <button className='bg-blue-500 w-fit rounded-xl px-2 py-1 text-white '>Learn more</button>
 
                 </div>
             ))

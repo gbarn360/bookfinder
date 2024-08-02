@@ -19,6 +19,9 @@ export default function Home(){
             </div>
             <div className='w-2/3 m-auto flex-col items-center mt-40'>
                 <h1 className='text-4xl flex flex-col items-center'>Fun Facts about Reading</h1>
+                <h3>Reading for just six minutes can reduce stress levels by 68%</h3>
+                <h3>Reading can reduce the risk of developing Alzheimer's disease</h3>
+                <h3>Reading can improve sleep</h3>
             </div>
         </div>
     )
