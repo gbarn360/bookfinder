@@ -7,7 +7,7 @@ export default function Home(){
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter" && textInput.trim()) {
-            navigate(`/search/${encodeURIComponent(textInput.trim())}`);
+            navigate(`/search/${encodeURIComponent(textInput.trim())}/20`);
         }
     };
     return(

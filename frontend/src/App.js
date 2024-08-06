@@ -7,7 +7,7 @@ function App() {
 
     <Routes>
       <Route path= "/" element ={<Home />} />
-      <Route path= {`/Search/:query`} element ={<Search />} />
+      <Route path= {`/Search/:query/:count`} element ={<Search />} />
     </Routes>
 
    </BrowserRouter>
