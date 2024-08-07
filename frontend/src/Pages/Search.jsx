@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import ReadingList from '../Components/ReadingList';
 import axios from 'axios';
 
 export default function Search() {
@@ -29,6 +30,7 @@ export default function Search() {
             const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}+intitle&maxResults=20&startIndex=${currentCount}&key=${process.env.REACT_APP_BOOKS_KEY}`);
             setBooks(response.data.items || []);
             setBookAmount(response.data.totalItems || 0);
+            console.log(response.data.items)
         } catch (error) {
             console.log(error);
             setBooks([]);
@@ -70,7 +72,7 @@ export default function Search() {
             {books.length > 0 && (
                 <h1>{Number(currentCount)}-{currentCount + 20} of {bookAmount} results</h1>
             )}
-
+            <div className='flex'>
             <div className='flex flex-wrap justify-center gap-10'>
                 {books.length > 0 && books.map((book, index) => (
                     <div key={index} className='flex flex-col border-2 w-1/5'>
@@ -89,6 +91,9 @@ export default function Search() {
                     </div>
                 ))}
             </div>
+            <ReadingList />
+            </div>
+            
 
             <div className='flex justify-center m-10'>
                 <button onClick={() => updateListings("left")}>left</button>

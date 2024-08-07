@@ -5,3 +5,14 @@
 *{
     font-family: monospace;
 }
+.scrollable {
+    overflow: auto; /* Enable scrolling */
+}
+
+.scrollable::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
+}
+
+.scrollable {
+    scrollbar-width: none; /* Hide scrollbar in Firefox */
+}
