@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
+
 import ReadingList from '../Components/ReadingList';
+import BookEntry from '../Components/BookEntry';
 import axios from 'axios';
 
 export default function Search() {
@@ -16,7 +18,7 @@ export default function Search() {
 
     // Update currentCount based on URL changes
     useEffect(() => {
-        setCurrentCount(Number(count) || 0);
+        setCurrentCount(Number(count) || 20);
     }, [location]);
 
     useEffect(() => {
@@ -27,7 +29,7 @@ export default function Search() {
 
     async function searchBooks() {
         try {
-            const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=25&startIndex=${currentCount}&key=${process.env.REACT_APP_BOOKS_KEY}`);
+            const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=25&startIndex=${currentCount - 20}&key=${process.env.REACT_APP_BOOKS_KEY}`);
 
             let filteredBooks = response.data.items.filter(book => 
                 book.volumeInfo && book.volumeInfo.imageLinks && Object.keys(book.volumeInfo.imageLinks).length > 0 && book.volumeInfo.industryIdentifiers[0].type !== "OTHER" 
@@ -57,7 +59,7 @@ export default function Search() {
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter" && textInput.trim()) {
-            navigate(`/search/${encodeURIComponent(textInput)}/0`);
+            navigate(`/search/${encodeURIComponent(textInput)}/20`);
         }
     };
 
@@ -74,23 +76,12 @@ export default function Search() {
             </div>
 
             {books.length > 0 && (
-                <h1>{Number(currentCount)}-{currentCount + 20} of {bookAmount} results</h1>
+                <h1>{Number(currentCount - 20)}-{currentCount} of {bookAmount} results</h1>
             )}
             <div className='flex'>
             <div className='flex flex-wrap justify-center gap-10'>
                 {books.length > 0 && books.map((book, index) => (
-                    <div key={index} className='flex flex-col justify-between w-1/5'>
-                            <img className='w-full ' src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
-                        <div className=''>
-                            <h1 className='text-center font-bold text-lg'>{book.volumeInfo.title}</h1>
-                            <div className='flex'>
-                                <span className='mr-1'>by</span>
-                                {book.volumeInfo?.authors?.map((author, idx) => (
-                                    <h2 key={idx}>{author}</h2>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
+                    <BookEntry book={book} index={index}/>
                 ))}
             </div>
             <ReadingList />
