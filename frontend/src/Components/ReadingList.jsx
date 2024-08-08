@@ -12,7 +12,7 @@ export default function ReadingList(){
         backgroundcolor:"red"
     }
     return(
-        <div onClick={()=>setDisplay(!display)} className="fixed right-0 top-11 overflow-y-scroll h-screen scrollable " >
+        <div onClick={()=>setDisplay(!display)} className="fixed right-1 top-11 overflow-y-scroll h-screen scrollable " >
 
             <FontAwesomeIcon className="text-lg  w-full" icon={faBookmark} />
 

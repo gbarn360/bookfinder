@@ -27,10 +27,14 @@ export default function Search() {
 
     async function searchBooks() {
         try {
-            const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}+intitle&maxResults=20&startIndex=${currentCount}&key=${process.env.REACT_APP_BOOKS_KEY}`);
-            setBooks(response.data.items || []);
-            setBookAmount(response.data.totalItems || 0);
-            console.log(response.data.items)
+            const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=25&startIndex=${currentCount}&key=${process.env.REACT_APP_BOOKS_KEY}`);
+
+            let filteredBooks = response.data.items.filter(book => 
+                book.volumeInfo && book.volumeInfo.imageLinks && Object.keys(book.volumeInfo.imageLinks).length > 0 && book.volumeInfo.industryIdentifiers[0].type !== "OTHER" 
+            );
+            setBooks(filteredBooks.slice(0,20) || []);
+            setBookAmount(response.data.totalItems);
+            console.log(filteredBooks);
         } catch (error) {
             console.log(error);
             setBooks([]);
@@ -75,10 +79,8 @@ export default function Search() {
             <div className='flex'>
             <div className='flex flex-wrap justify-center gap-10'>
                 {books.length > 0 && books.map((book, index) => (
-                    <div key={index} className='flex flex-col border-2 w-1/5'>
-                        {book.volumeInfo?.imageLinks?.thumbnail && (
-                            <img className='w-full m-auto' src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
-                        )}
+                    <div key={index} className='flex flex-col justify-between w-1/5'>
+                            <img className='w-full ' src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
                         <div className=''>
                             <h1 className='text-center font-bold text-lg'>{book.volumeInfo.title}</h1>
                             <div className='flex'>
