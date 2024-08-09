@@ -9,7 +9,7 @@ export default function ReadingList(){
 
     
     return(
-        <div onClick={()=>setDisplay(!display)} className=" fixed -right-0 top-11 overflow-y-scroll h-screen scrollable " >
+        <div onClick={()=>setDisplay(!display)} className=" fixed -right-0 top-5 overflow-y-scroll h-screen scrollable " >
 
             <FontAwesomeIcon className="text-lg  w-full text-slate-300" icon={faBookmark} />
 

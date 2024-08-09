@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-
-import ReadingList from '../Components/ReadingList';
+import Navbar from '../Components/Navbar';
 import BookEntry from '../Components/BookEntry';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+
+
 import axios from 'axios';
 
 export default function Search() {
@@ -11,7 +15,6 @@ export default function Search() {
     const { query } = useParams();
     const { count } = useParams();
 
-    const [textInput, setTextInput] = useState(query || '');
     const [books, setBooks] = useState([]);
     const [bookAmount, setBookAmount] = useState(0);
     const [currentCount, setCurrentCount] = useState(Number(count) || 0);
@@ -57,41 +60,28 @@ export default function Search() {
         });
     }
 
-    const handleKeyDown = (e) => {
-        if (e.key === "Enter" && textInput.trim()) {
-            navigate(`/search/${encodeURIComponent(textInput)}/20`);
-        }
-    };
-
+   
     return (
-        <div className='w-5/6 m-auto'>
-            <div className='w-1/2 m-auto mb-10'>
-                <input
-                    value={textInput}
-                    onChange={(e) => setTextInput(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    className='py-1 border-2 w-full rounded-xl mt-10 text-sm pl-2'
-                    placeholder='Search now'
-                />
-            </div>
+        <div className='w-5/6 m-auto relative'>
+           
+            <Navbar />
+            <div className='mt-20'>
+                {books.length > 0 && (
+                    <h1>{Number(currentCount - 20)}-{currentCount} of {bookAmount} results</h1>
+                )}
+                <div className='flex flex-wrap justify-center gap-10'>
+                    {books.length > 0 && books.map((book, index) => (
+                        <BookEntry book={book} index={index}/>
+                    ))}
+                </div>
+                
 
-            {books.length > 0 && (
-                <h1>{Number(currentCount - 20)}-{currentCount} of {bookAmount} results</h1>
-            )}
-            <div className='flex'>
-            <div className='flex flex-wrap justify-center gap-10'>
-                {books.length > 0 && books.map((book, index) => (
-                    <BookEntry book={book} index={index}/>
-                ))}
+                {books.length > 0 ? <div className='flex justify-between w-1/6  my-10 m-auto  '>
+                    <button onClick={() => updateListings("left")}><FontAwesomeIcon className='text-xl' icon={faArrowLeft} /></button>
+                    <button onClick={() => updateListings("right")}><FontAwesomeIcon className='text-xl' icon={faArrowRight} /></button>
+                </div> : null}
             </div>
-            <ReadingList />
-            </div>
-            
-
-            <div className='flex justify-center m-10'>
-                <button onClick={() => updateListings("left")}>left</button>
-                <button onClick={() => updateListings("right")}>right</button>
-            </div>
+           
         </div>
     );
 }
