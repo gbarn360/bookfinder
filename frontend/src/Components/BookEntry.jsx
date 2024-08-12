@@ -20,9 +20,8 @@ export default function BookEntry({book,index}){
                             <h1 className='text-center font-bold text-lg'>{book.volumeInfo.title}</h1>
                             <div className='flex'>
                                 <span className='mr-1'>by</span>
-                                {book.volumeInfo?.authors?.map((author, idx) => (
-                                    <h2 key={idx}>{author}</h2>
-                                ))}
+                                {book.volumeInfo?.authors ? <h1>{book.volumeInfo?.authors[0]}</h1> : null}
+                                {book.volumeInfo?.authors.length > 1 ? <span> ...</span> : null}
                             </div>
                         </div>
                     </div>

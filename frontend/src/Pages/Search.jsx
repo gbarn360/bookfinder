@@ -35,7 +35,7 @@ export default function Search() {
             const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=25&startIndex=${currentCount - 20}&key=${process.env.REACT_APP_BOOKS_KEY}`);
 
             let filteredBooks = response.data.items.filter(book => 
-                book.volumeInfo && book.volumeInfo.imageLinks && Object.keys(book.volumeInfo.imageLinks).length > 0 && book.volumeInfo.industryIdentifiers[0].type !== "OTHER" 
+                book.volumeInfo && book.volumeInfo.imageLinks && Object.keys(book.volumeInfo.imageLinks).length > 0 
             );
             setBooks(filteredBooks.slice(0,20) || []);
             setBookAmount(response.data.totalItems);
@@ -76,8 +76,10 @@ export default function Search() {
                 </div>
                 
 
-                {books.length > 0 ? <div className='flex justify-between w-1/6  my-10 m-auto  '>
+                {books.length > 0 ?
+                 <div className='flex justify-between w-1/6  my-10 m-auto  '>
                     <button onClick={() => updateListings("left")}><FontAwesomeIcon className='text-xl' icon={faArrowLeft} /></button>
+                    <h1 className=''>{(currentCount / 20)}</h1>
                     <button onClick={() => updateListings("right")}><FontAwesomeIcon className='text-xl' icon={faArrowRight} /></button>
                 </div> : null}
             </div>
