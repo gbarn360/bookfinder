@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../Components/Footer';
 export default function Home(){
 
     const[textInput,setTextInput] = useState("");
@@ -27,6 +28,7 @@ export default function Home(){
 
                 <h3 className='text-base  w-fit'>Reading can <span className='text-blue-300 font-bold'>improve sleep</span></h3>
             </div>
+            <Footer />
         </div>
     )
 }

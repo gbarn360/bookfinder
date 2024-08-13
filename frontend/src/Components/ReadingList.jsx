@@ -9,9 +9,9 @@ export default function ReadingList(){
 
     
     return(
-        <div onClick={()=>setDisplay(!display)} className=" fixed -right-0 top-5 overflow-y-scroll h-screen scrollable " >
+        <div  className=" fixed -right-0 top-5 overflow-y-scroll h-screen scrollable " >
 
-            <FontAwesomeIcon className="text-lg  w-full text-slate-300" icon={faBookmark} />
+            <FontAwesomeIcon onClick={()=>setDisplay(!display)} className="text-lg  w-full text-slate-300 cursor-pointer" icon={faBookmark} />
 
 
             <div className={`flex flex-col gap-10 mx-1   mt-5 -right-4 ${display ? "display -translate-x-0" : "display translate-x-20"}  `}>
