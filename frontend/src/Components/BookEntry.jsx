@@ -1,18 +1,16 @@
-import react,{useState} from "react"
+import react,{useState,useContext} from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { ReadListContext } from '../Utility/ReadListContext';
 
 export default function BookEntry({book,index,display}){
 
     const[added,setAdded] = useState(false);
-
-    function addBookToReadList(){
-        setAdded(!added)
-        //add book to read list
-    }
+    const { addBookToReadList } = useContext(ReadListContext);
+   
     return(
         <div onClick={()=>{display()}} key={index} className='flex flex-col justify-between w-1/5 relative cursor-pointer'>
-                        <button className='absolute text-lg right-1 bottom-0' onClick={(e)=>{e.stopPropagation();addBookToReadList()}}>
+                        <button className='absolute text-lg right-1 bottom-0' onClick={(e)=>{e.stopPropagation();addBookToReadList(book)}}>
                             <FontAwesomeIcon  className={added ? "text-red-600" : "text-slate-300" } icon={faStar} />
                         </button>
                             <img className='w-full ' src={book.volumeInfo?.imageLinks?.thumbnail} alt={book.volumeInfo.title} />

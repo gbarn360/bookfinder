@@ -1,5 +1,4 @@
 import React,{useState} from 'react';
-import ReadingList from './ReadingList';
 import { useParams, useNavigate } from 'react-router-dom';
 
 export default function Navbar(){
@@ -25,7 +24,6 @@ export default function Navbar(){
                     placeholder='Search now'
                 />
             </div>
-            <ReadingList />
             
         </div>
     )

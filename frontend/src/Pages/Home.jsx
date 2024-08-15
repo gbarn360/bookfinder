@@ -15,7 +15,7 @@ export default function Home(){
         <div className='w-full h-screen'>
             <div className='w-2/3 mt-40  m-auto flex flex-col items-center gap-y-6 '>
                 <h1 className='text-6xl text-center'>Find your Next <span className='bg-blue-300 rounded-xl px-2 '>Read</span></h1>
-                <h2 className='text-lg w-1/2 text-center'>Search for books based on a title, author, or by subject</h2>
+                <h2 className='text-lg w-1/2 text-center'>Search through thousands of books to find exactly what you're looking for...</h2>
                 <input value={textInput} onChange={(e)=>setTextInput(e.target.value)} onKeyDown={handleKeyDown} className='py-2 shadow-md w-1/2 rounded-xl mt-10 text-sm pl-2 border-2 border-blue-300 outline-none placeholder-black' placeholder='Search now'/>
             </div>
             <div className='w-2/3 m-auto my-40 '>

@@ -7,6 +7,7 @@ import BookPopup from '../Components/BookPopup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import ReadingList from "../Components/ReadingList"
 
 
 import axios from 'axios';
@@ -43,7 +44,6 @@ export default function Search() {
             );
             setBooks(filteredBooks.slice(0,20) || []);
             setBookAmount(response.data.totalItems);
-            console.log(filteredBooks);
         } catch (error) {
             console.log(error);
             setBooks([]);
@@ -69,6 +69,8 @@ export default function Search() {
         <div className=' m-auto relative'>
            
             <Navbar />
+            <ReadingList displayBook={(book)=>{setDisplayPopup(true);setDisplayedBook(book)}}/>
+
 
             {books.length  ? 
             <div className='mt-20 m-auto w-5/6 '>
