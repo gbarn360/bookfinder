@@ -7,14 +7,23 @@ export function ReadListProvider({children}){
     const [readList,setReadList] = useState([]);
 
     const addBookToReadList = (book) => {
-        if(!readList.includes(book)){
-            setReadList((prevBooks)=>[...prevBooks,book])
-        }
+        
+            let filteredBook = {
+                id: book.id,
+                volumeInfo: book.volumeInfo
+            }
+            if(!readList.some(e => e.id === filteredBook.id))
+                setReadList((prevBooks)=>[filteredBook,...prevBooks])
         
     }
 
+    const removeBookFromReadList = (book) => {
+       let filteredBooks = readList.filter(e => e.id !== book.id);
+       setReadList(filteredBooks);
+    }
+
     return (
-        <ReadListContext.Provider value={{ readList, addBookToReadList }}>
+        <ReadListContext.Provider value={{ readList, addBookToReadList, removeBookFromReadList }}>
             {children}
         </ReadListContext.Provider>
     );

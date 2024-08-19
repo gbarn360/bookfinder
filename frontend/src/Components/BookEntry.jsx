@@ -1,17 +1,30 @@
-import react,{useState,useContext} from "react"
+import react,{useState,useContext,useEffect} from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { ReadListContext } from '../Utility/ReadListContext';
 
 export default function BookEntry({book,index,display}){
 
-    const[added,setAdded] = useState(false);
-    const { addBookToReadList } = useContext(ReadListContext);
+    const { readList,addBookToReadList,removeBookFromReadList } = useContext(ReadListContext);
+    const [isAdded, setIsAdded] = useState(readList.some((e) => e.id === book.id));
+
+    useEffect(() => {
+        setIsAdded(readList.some((e) => e.id === book.id));
+    }, [readList, book.id]);
+
+    function updateListings(){
+        if(isAdded){
+            removeBookFromReadList(book)
+        }
+        else{
+            addBookToReadList(book)
+        }
+    }
    
     return(
         <div onClick={()=>{display()}} key={index} className='flex flex-col justify-between w-1/5 relative cursor-pointer'>
-                        <button className='absolute text-lg right-1 bottom-0' onClick={(e)=>{e.stopPropagation();addBookToReadList(book)}}>
-                            <FontAwesomeIcon  className={added ? "text-red-600" : "text-slate-300" } icon={faStar} />
+                        <button className='absolute text-lg right-1 bottom-0' onClick={(e)=>{e.stopPropagation();updateListings()}}>
+                            <FontAwesomeIcon  className={ isAdded ? "text-red-600" : "text-slate-300" } icon={faStar} />
                         </button>
                             <img className='w-full ' src={book.volumeInfo?.imageLinks?.thumbnail} alt={book.volumeInfo.title} />
                         <div className=''>
