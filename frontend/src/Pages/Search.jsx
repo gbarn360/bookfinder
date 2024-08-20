@@ -73,9 +73,9 @@ export default function Search() {
 
 
             {books.length  ? 
-            <div className='mt-20 m-auto w-5/6 '>
+            <div className='mt-20 m-auto w-full md:w-5/6  2xl:w-2/3 '>
                 {books.length  && (
-                    <h1>{Number(currentCount - 20)}-{currentCount} of {bookAmount} results </h1>
+                    <h1 className='text-center md:text-left'>{Number(currentCount - 20)}-{currentCount} of {bookAmount} results </h1>
                 )}
                 <div className='flex flex-wrap justify-center gap-10'>
                     {books.length  && books.map((book, index) => (

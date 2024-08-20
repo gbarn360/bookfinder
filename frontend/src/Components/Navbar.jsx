@@ -1,11 +1,14 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 export default function Navbar(){
     const navigate = useNavigate();
     const { query } = useParams();
-    const [textInput, setTextInput] = useState(query || '');
+    const [textInput, setTextInput] = useState(query);
 
+    useEffect(()=>{
+        setTextInput(query)
+    },[query])
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter" && textInput.trim()) {
@@ -23,6 +26,7 @@ export default function Navbar(){
                     className='py-1 border-2 w-full rounded-xl  text-sm pl-2'
                     placeholder='Search now'
                 />
+                
             </div>
             
         </div>

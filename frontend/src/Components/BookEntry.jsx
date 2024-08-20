@@ -22,7 +22,7 @@ export default function BookEntry({book,index,display}){
     }
    
     return(
-        <div onClick={()=>{display()}} key={index} className='flex flex-col justify-between w-1/5 relative cursor-pointer'>
+        <div onClick={()=>{display()}} key={index} className='flex flex-col justify-between w-1/2 sm:w-1/3 lg:w-1/5 xl:w-1/6 relative cursor-pointer'>
                         <button className='absolute text-lg right-1 bottom-0' onClick={(e)=>{e.stopPropagation();updateListings()}}>
                             <FontAwesomeIcon  className={ isAdded ? "text-red-600" : "text-slate-300" } icon={faStar} />
                         </button>

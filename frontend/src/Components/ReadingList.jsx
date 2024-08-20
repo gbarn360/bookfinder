@@ -12,7 +12,7 @@ export default function ReadingList({displayBook}){
         setDisplay(true);
     },[readList])
     return(
-        <div  className=" fixed right-1 top-5 overflow-y-scroll h-screen scrollable z-50 " >
+        <div  className=" fixed right-1 top-5 overflow-y-scroll h-screen scrollable z-40 " >
 
             <div className=" flex justify-end">
                 <FontAwesomeIcon onClick={()=>{setDisplay(!display);console.log(readList)}} className="text-lg   text-slate-300 cursor-pointer" icon={faBookmark} />
