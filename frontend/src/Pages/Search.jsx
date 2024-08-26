@@ -7,31 +7,13 @@ import BookPopup from '../Components/BookPopup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import ReadingList from "../Components/ReadingList";
-import { useQuery, gql } from '@apollo/client';
+import { useQuery} from '@apollo/client';
+import { SEARCH_BOOKS } from '../Utility/gql';
+import Loading from "../Components/Loading";
+import Error from '../Components/Error';
 
 
 
-
-
-// Define your GraphQL query
-const SEARCH_BOOKS = gql`
-  query SearchBooks($query: String!, $count: Int!) {
-    searchBooks(query: $query, count: $count) {
-      totalItems
-      items {
-        id
-        volumeInfo {
-          title
-          authors
-          description
-          imageLinks {
-            thumbnail
-          }
-        }
-      }
-    }
-  }
-`;
 
 export default function Search() {
     const navigate = useNavigate();
@@ -42,10 +24,9 @@ export default function Search() {
     const [displayPopup, setDisplayPopup] = useState(false);
     const [displayedBook, setDisplayedBook] = useState();
 
-    // Query to get books
     const { loading, error, data } = useQuery(SEARCH_BOOKS, {
         variables: { query, count: currentCount },
-        skip: !query || !currentCount, // Skip query if params are not 
+        skip: !query || !currentCount,
 
     });
 
@@ -67,9 +48,6 @@ export default function Search() {
       }
       
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>;
-
     const books = data?.searchBooks.items || [];
     const bookAmount = data?.searchBooks.totalItems || 0 // Adjust this based on actual API response or requirements
 
@@ -77,7 +55,8 @@ export default function Search() {
         <div className='m-auto relative'>
             <Navbar />
             <ReadingList displayBook={(book) => { setDisplayPopup(true); setDisplayedBook(book); }} />
-
+            {loading ? (<Loading />) : null}
+            {error ? (<Error message={error.message}/>) : null}
             {books.length ? (
                 <div className='mt-20 m-auto w-full md:w-5/6 2xl:w-2/3'>
                     <h1 className='text-center md:text-left'>{Number(currentCount - 20)}-{currentCount} of {bookAmount} results</h1>
