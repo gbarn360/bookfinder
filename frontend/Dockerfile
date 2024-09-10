@@ -1,7 +1,7 @@
 
 FROM node:18
 
-WORKDIR /src
+WORKDIR /backend
 
 COPY package*.json ./
 
@@ -11,6 +11,6 @@ COPY . .
 
 RUN npm run build
 
-CMD ['npm', 'start']
+CMD ["npm","start"]
 
 EXPOSE 3000
