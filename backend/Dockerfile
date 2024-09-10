@@ -1,6 +1,6 @@
 FROM node:18
 
-WORKDIR /index
+WORKDIR /backend
 
 COPY package*.json ./
 
@@ -9,4 +9,3 @@ COPY . .
 
 CMD ["npm", "start"]
 
-EXPOSE 5000
