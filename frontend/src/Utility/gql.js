@@ -14,6 +14,9 @@ export const SEARCH_BOOKS = gql`
           imageLinks {
             thumbnail
           }
+          publisher
+          publishedDate
+          pageCount
         }
       }
     }

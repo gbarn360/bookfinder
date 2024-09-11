@@ -14,6 +14,7 @@ export default function BookPopup({book,undisplay}){
 
     useEffect(() => {
         setisadded(readList.some((e) => e.id === book.id));
+        console.log(book.volumeInfo.publishedDate)
     }, [readList, book.id]);
 
     function updateListings(){
@@ -56,7 +57,7 @@ export default function BookPopup({book,undisplay}){
                         </div>
                     </div>
                     <button className='absolute top-0 right-0 text-lg' onClick={(e)=>{e.stopPropagation();updateListings()}}>
-                    <FontAwesomeIcon  className={isadded ? "text-red-600" : "text-slate-300" } icon={faStar} />                    </button>
+                    <FontAwesomeIcon  className={isadded ? "text-blue-300" : "text-slate-300" } icon={faStar} />                    </button>
                 </div>
                 <p className='font-bold mt-2 text-sm'>{book.volumeInfo.subtitle}</p>
                 <div className='h-1/2 overflow-y-auto '>
