@@ -29,6 +29,9 @@ const typeDefs = gql`
         authors: [String]
         description: String
         imageLinks : ImageLinks
+        publisher: String
+        publishedDate: String
+        pageCount: Int
     }
     type ImageLinks{
         thumbnail: String
