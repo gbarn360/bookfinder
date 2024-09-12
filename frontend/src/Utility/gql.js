@@ -17,6 +17,7 @@ export const SEARCH_BOOKS = gql`
           publisher
           publishedDate
           pageCount
+          previewLink
         }
       }
     }

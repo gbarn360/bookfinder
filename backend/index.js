@@ -32,6 +32,7 @@ const typeDefs = gql`
         publisher: String
         publishedDate: String
         pageCount: Int
+        previewLink : String
     }
     type ImageLinks{
         thumbnail: String
